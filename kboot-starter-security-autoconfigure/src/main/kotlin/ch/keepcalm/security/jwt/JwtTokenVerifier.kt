@@ -78,7 +78,6 @@ class JwtTokenVerifier(private val jwtSecurityConfigurer: JwtSecurityConfigurer)
             LOG.info("JWT token compact of handler are invalid.")
             LOG.trace("JWT token compact of handler are invalid trace: {}", e)
         }
-
         return false
     }
 }
