@@ -1,5 +1,6 @@
 # KBOOT Spring Boot Starter
-![Master Branch](https://github.com/marzelwidmer/kboot-starter/workflows/Master%20Branch/badge.svg) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kboot-starter&metric=alert_status)](https://sonarcloud.io/dashboard?id=kboot-starter)
+![CI Build](https://github.com/marzelwidmer/kboot-starter/workflows/CI%20Build/badge.svg) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kboot-starter&metric=alert_status)](https://sonarcloud.io/dashboard?id=kboot-starter)
+
 ## Configure JWT
 ```yaml
 keepcalm:
