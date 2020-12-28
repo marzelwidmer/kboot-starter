@@ -1,0 +1,82 @@
+{
+  "groups": [
+    {
+      "name": "keepcalm.security.endpoints",
+      "type": "ch.keepcalm.security.jwt.JwtSecurityConfigurer"
+    },
+    {
+      "name": "keepcalm.security.jwt",
+      "type": "ch.keepcalm.security.web.WebSecurityConfigurer"
+    }
+  ],
+  "properties": [
+    {
+      "name": "keepcalm.security.jwt.issuer",
+      "type": "java.lang.String",
+      "description": "The \"iss\" (issuer) claim identifies the principal that issued the\n   JWT.  The processing of this claim is generally application specific.\n   The \"iss\" value is a case-sensitive string containing a StringOrURI\n   value.  Use of this claim is OPTIONAL."
+    },
+    {
+      "name": "keepcalm.security.jwt.audience",
+      "type": "java.lang.String",
+      "description": "The \"aud\" (audience) claim identifies the recipients that the JWT is\n   intended for.  Each principal intended to process the JWT MUST\n   identify itself with a value in the audience claim.  If the principal\n   processing the claim does not identify itself with a value in the\n   \"aud\" claim when this claim is present, then the JWT MUST be\n   rejected.  In the general case, the \"aud\" value is an array of case-\n   sensitive strings, each containing a StringOrURI value.  In the\n   special case when the JWT has one audience, the \"aud\" value MAY be a\n   single case-sensitive string containing a StringOrURI value.  The\n   interpretation of audience values is generally application specific.\n   Use of this claim is OPTIONAL."
+    },
+    {
+      "name": "keepcalm.security.jwt.secret",
+      "type": "java.lang.String",
+      "description": "The secret to sign the JWT"
+    },
+    {
+      "name": "keepcalm.security.endpoints.admin",
+      "type": "java.lang.String",
+      "description": "List of Administrator Endpoints"
+    },
+    {
+      "name": "keepcalm.security.endpoints.user",
+      "type": "java.lang.String",
+      "description": "List of User Endpoints"
+    },
+    {
+      "name": "keepcalm.security.endpoints.unsecured",
+      "type": "java.lang.String",
+      "description": "List of Unsecured Endpoints"
+    }
+  ],
+  "hints": [
+    {
+      "name": "keepcalm.security.jwt",
+      "values": [
+        {
+          "value": "issuer",
+          "description": "The \"iss\" (issuer) claim identifies the principal that issued the\n   JWT.  The processing of this claim is generally application specific.\n   The \"iss\" value is a case-sensitive string containing a StringOrURI\n   value.  Use of this claim is OPTIONAL."
+        },
+        {
+          "value": "audience",
+          "description": "The \"aud\" (audience) claim identifies the recipients that the JWT is\n   intended for.  Each principal intended to process the JWT MUST\n   identify itself with a value in the audience claim.  If the principal\n   processing the claim does not identify itself with a value in the\n   \"aud\" claim when this claim is present, then the JWT MUST be\n   rejected.  In the general case, the \"aud\" value is an array of case-\n   sensitive strings, each containing a StringOrURI value.  In the\n   special case when the JWT has one audience, the \"aud\" value MAY be a\n   single case-sensitive string containing a StringOrURI value.  The\n   interpretation of audience values is generally application specific.\n   Use of this claim is OPTIONAL."
+        },
+        {
+          "value": "secret",
+          "description": "The secret to sign the JWT"
+        }
+      ]
+    },
+    {
+      "name": "keepcalm.security.endpoints",
+      "values": [
+        {
+          "value": "admin",
+          "description": "The Admin Endpoint is only available with a Admin Role"
+        },
+        {
+          "value": "user",
+          "description": "The User Endpoint is only available with a Admin Role"
+        },
+        {
+          "value": "unsecured",
+          "description": "The Unsecured Endpoint is available for Public"
+        }
+      ]
+    }
+  ]
+}
+
+

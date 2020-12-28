@@ -1,0 +1,61 @@
+name: PullRequest / Feature Build
+
+on:
+  push:
+    branches-ignore:
+      - 'master'
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [ master ]
+jobs:
+  test:
+    name: Test Feature and Pull Request
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      # SemVer
+      - name: Semantic Version
+        id: Semver
+        run: |-
+          chmod +x .github/semver.sh
+          ./.github/semver.sh
+      # Setup JDK
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      # Cache
+      - name: Cache Packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-m2
+          restore-keys: ${{ runner.os }}-m2
+      # Gradle Build
+      - name: Build and Test with Gradle
+        run: gradle build -Pversion=$VERSION-SNAPSHOT
+
+      # SonarCloud Cache
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      # SonarCloud Package
+      - name: Cache Gradle packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
+      # SonarCloud Build and Analyze
+      - name: Build and analyze Sonar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run:  gradle -Drevision=$VERSION-SNAPSHOT build sonarqube --info
