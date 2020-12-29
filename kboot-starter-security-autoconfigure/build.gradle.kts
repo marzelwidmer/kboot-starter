@@ -18,20 +18,22 @@ dependencies {
     // Kotlin dependencies
     implementation(kotlin("stdlib-jdk8"))
     implementation(kotlin("reflect"))
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonModuleKotlin")
+    implementation("com.fasterxml.jackson.module", "jackson-module-kotlin", jacksonModuleKotlin)
 
     // Spring Boot dependencies
-    implementation("org.springframework.boot:spring-boot-starter-security:$springBootVersion")
-    implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
-    implementation("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
+    implementation("org.springframework.boot", "spring-boot-starter-security", springBootVersion)
+    implementation("org.springframework.boot", "spring-boot-starter-web", springBootVersion)
+    implementation("org.springframework.boot", "spring-boot-starter-webflux", springBootVersion)
+    implementation("org.springframework.boot", "spring-boot-starter-actuator", springBootVersion)
     // Annotation Processors
-    annotationProcessor("org.springframework.boot:spring-boot-autoconfigure-processor:$springBootVersion")
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:$springBootVersion")
+    annotationProcessor("org.springframework.boot", "spring-boot-autoconfigure-processor", springBootVersion)
+    annotationProcessor("org.springframework.boot", "spring-boot-configuration-processor", springBootVersion)
 
 
     // Test dependencies
-    testImplementation("org.springframework.security:spring-security-test:$springSecurityTest")
-    testImplementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
+    testImplementation("org.springframework.security", "spring-security-test", springSecurityTest)
+    testImplementation("org.springframework.boot", "spring-boot-starter-test", springBootVersion)
     testImplementation(kotlin("test"))
+    testImplementation("org.amshove.kluent", "kluent", "1.64")
 
 }

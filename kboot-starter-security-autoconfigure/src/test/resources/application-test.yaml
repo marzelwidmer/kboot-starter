@@ -1,0 +1,14 @@
+keepcalm:
+  security:
+    jwt:
+      issuer: Keepcalm Auth Test
+      audience: Keepcalm Test
+      secret: s3cretP@ssw0rd
+    endpoints:
+      admin:
+        - "/api/admin/**"
+      user:
+        - "/api/user/foo/**"
+        - "/api/user/bar/**"
+      unsecured:
+        - "/unsecure"
