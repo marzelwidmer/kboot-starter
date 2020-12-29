@@ -13,32 +13,35 @@ import javax.servlet.ServletResponse
 import javax.servlet.http.HttpServletRequest
 
 class JwtTokenFilter(private val tokenVerifier: JwtTokenVerifier) : GenericFilterBean() {
+    private val log = LoggerFactory.getLogger(javaClass)
+
     companion object {
-        private val LOG = LoggerFactory.getLogger(JwtTokenFilter::class.java)
         private const val AUTHENTICATION_SCHEMA = "Bearer "
     }
 
     @Throws(IOException::class, ServletException::class)
     override fun doFilter(servletRequest: ServletRequest, servletResponse: ServletResponse, filterChain: FilterChain) {
-
         authenticateIfAvailable(resolveToken(servletRequest as HttpServletRequest))
         filterChain.doFilter(servletRequest, servletResponse)
     }
 
-    private fun authenticateIfAvailable(jwt: String?) =
-            jwt.takeIf { hasText(jwt) }?.apply {
-                if (tokenVerifier.validateToken(this)) {
-                    SecurityContextHolder.getContext().authentication = tokenVerifier.getAuthentication(this)
-                }
-            }
+    private fun authenticateIfAvailable(jwt: String?): String? =
+        jwt.takeIf { hasText(jwt) }?.apply {
+            check(tokenVerifier.validateToken(this))
+            SecurityContextHolder.getContext().authentication = tokenVerifier.getAuthentication(this)
+        }
+
 
     private fun resolveToken(request: HttpServletRequest) =
-            toJwtToken(request.getHeader(AUTHORIZATION)
-                    .also { LOG.trace("Found Authorization Header: $it") })
+        extractBearerTokenFromAuthorizationHeader(request.getHeader(AUTHORIZATION)
+            .also { log.trace("Found Authorization Header: $it") })
 
-    private fun toJwtToken(bearerToken: String?) =
-            if (bearerToken != null && bearerToken.startsWith(AUTHENTICATION_SCHEMA)) {
-                bearerToken.substring(AUTHENTICATION_SCHEMA.length, bearerToken.length).trim()
-                        .also { LOG.debug("Found JWT token: $it") }
-            } else null
+    /**
+     *  Extract Bearer token form Authorization Header (Authorization: Bearer eyJhbGciOiJIU.eyJpc3MiOiJIZWxzc.GciOiJIUSGciO)
+     */
+    private fun extractBearerTokenFromAuthorizationHeader(bearerToken: String?) =
+        if (bearerToken != null && bearerToken.startsWith(AUTHENTICATION_SCHEMA)) {
+            bearerToken.substring(AUTHENTICATION_SCHEMA.length, bearerToken.length).trim()
+                .also { log.debug("Found JWT token: $it") }
+        } else null
 }

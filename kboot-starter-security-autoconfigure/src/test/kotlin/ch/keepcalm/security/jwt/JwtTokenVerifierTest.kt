@@ -1,16 +1,16 @@
 package ch.keepcalm.security.jwt
 
 import ch.keepcalm.security.CustomUserDetails
-import org.assertj.core.api.Assertions.assertThat
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 
 class JwtTokenVerifierTest {
 
     companion object {
-        private const val JWT_TOKEN_LANGUAGE_EN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhYWNmMWUyOS04ODY1LTRhNjgtOTcwMi03NTZkMWIyZjU3NjMiLCJzdWIiOiJqb2huLmRvZUBjaC5rZWVwY2FsbS5mb28uY2gua2VlcGNhbG0uYmFyLmNoIiwiaWF0IjoxNjA4NTgyNTcyLCJleHAiOjE2MTIxODI1NzI5OTksImlzcyI6IktlZXBjYWxtIEF1dGgiLCJhdWQiOiJLZWVwY2FsbSIsImxhbmd1YWdlIjoiZW4iLCJuYW1lIjoiRG9lIiwiZmlyc3ROYW1lIjoiSm9obiIsImVtYWlsIjoiam9oLmRvZUBjaC5rZWVwY2FsbS5mb28uY2gua2VlcGNhbG0uYmFyLmNoIiwicm9sZXMiOiJrZWVwY2FsbS51c2VyIn0.5EuWcv5wfSG3M4lEoZ9WglQEeZUvEEcHL_FwPh-QrTc"
-        private const val JWT_TOKEN_LANGUAGE_DE = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhYWNmMWUyOS04ODY1LTRhNjgtOTcwMi03NTZkMWIyZjU3NjMiLCJzdWIiOiJqb2huLmRvZUBjaC5rZWVwY2FsbS5mb28uY2gua2VlcGNhbG0uYmFyLmNoIiwiaWF0IjoxNjA4NTgyNTcyLCJleHAiOjE2MTIxODI1NzI5OTksImlzcyI6IktlZXBjYWxtIEF1dGgiLCJhdWQiOiJLZWVwY2FsbSIsImxhbmd1YWdlIjoiZGUiLCJuYW1lIjoiRG9lIiwiZmlyc3ROYW1lIjoiSm9obiIsImVtYWlsIjoiam9oLmRvZUBjaC5rZWVwY2FsbS5mb28uY2gua2VlcGNhbG0uYmFyLmNoIiwicm9sZXMiOiJrZWVwY2FsbS51c2VyIn0.Y9ap6YABYQcZPiQd0yUCu4q5GrMwMd_dPSTloqkm-a0"
-        private const val JWT_TOKEN_LANGUAGE_IS_MISSING = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhYWNmMWUyOS04ODY1LTRhNjgtOTcwMi03NTZkMWIyZjU3NjMiLCJzdWIiOiJqb2huLmRvZUBjaC5rZWVwY2FsbS5mb28uY2gua2VlcGNhbG0uYmFyLmNoIiwiaWF0IjoxNjA4NTgyNTcyLCJleHAiOjE2MTIxODI1NzI5OTksImlzcyI6IktlZXBjYWxtIEF1dGgiLCJhdWQiOiJLZWVwY2FsbSIsIm5hbWUiOiJEb2UiLCJmaXJzdE5hbWUiOiJKb2huIiwiZW1haWwiOiJqb2guZG9lQGNoLmtlZXBjYWxtLmZvby5jaC5rZWVwY2FsbS5iYXIuY2giLCJyb2xlcyI6ImtlZXBjYWxtLnVzZXIifQ.3epqCd60AxY6BtcvnzQTqmU2RA--kESfUinF9AbmUMc"
+        private const val JWT_TOKEN_LANGUAGE_EN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhZjM1ZjY0ZS1hMjFjLTQxNmUtODE4OC1iMjUxZjZhYmY1MGIiLCJzdWIiOiJqb2huLmRvZUBrZWVwY2FsbS5jaCIsImlhdCI6MTYwOTIyNjM3OSwiZXhwIjoyNjA5MjIyNzc4LCJpc3MiOiJLZWVwY2FsbSBBdXRoIiwiYXVkIjoiS2VlcGNhbG0iLCJsYW5ndWFnZSI6ImVuIiwibGFzdG5hbWUiOiJEb2UiLCJmaXJzdG5hbWUiOiJKb2huIiwiZW1haWwiOiJqb2guZG9lQGtlZXBjYWxtLmNoIiwicm9sZXMiOiJrZWVwY2FsbS51c2VyIn0.eNtvlvpK7fHJV52LTH1PBxTD_mqCJ2QaxAY236DDn4M"
+        private const val JWT_TOKEN_LANGUAGE_DE = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhZjM1ZjY0ZS1hMjFjLTQxNmUtODE4OC1iMjUxZjZhYmY1MGIiLCJzdWIiOiJqb2huLmRvZUBrZWVwY2FsbS5jaCIsImlhdCI6MTYwOTIyNjM3OSwiZXhwIjoyNjA5MjIyNzc4LCJpc3MiOiJLZWVwY2FsbSBBdXRoIiwiYXVkIjoiS2VlcGNhbG0iLCJsYW5ndWFnZSI6ImRlIiwibGFzdG5hbWUiOiJEb2UiLCJmaXJzdG5hbWUiOiJKb2huIiwiZW1haWwiOiJqb2guZG9lQGtlZXBjYWxtLmNoIiwicm9sZXMiOiJrZWVwY2FsbS51c2VyIn0.XtovgEFWYzzTPgCHf4My3Fm9oW-nlAO5ZeDKIAZD82A"
+        private const val JWT_TOKEN_LANGUAGE_IS_MISSING = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhZjM1ZjY0ZS1hMjFjLTQxNmUtODE4OC1iMjUxZjZhYmY1MGIiLCJzdWIiOiJqb2huLmRvZUBrZWVwY2FsbS5jaCIsImlhdCI6MTYwOTIyNjM3OSwiZXhwIjoyNjA5MjIyNzc4LCJpc3MiOiJLZWVwY2FsbSBBdXRoIiwiYXVkIjoiS2VlcGNhbG0iLCJsYXN0bmFtZSI6IkRvZSIsImZpcnN0bmFtZSI6IkpvaG4iLCJlbWFpbCI6ImpvaC5kb2VAa2VlcGNhbG0uY2giLCJyb2xlcyI6ImtlZXBjYWxtLnVzZXIifQ.6xCW8ul9_OLcJk5jomhP1Lgm_0ZK01k5HMLdIFu1UTw"
         private const val JWT_TOKEN_SECRET = "s3cretP@ssw0rd"
     }
 
@@ -18,7 +18,7 @@ class JwtTokenVerifierTest {
 
     @BeforeAll
     fun setup() {
-        val jwtProperties = JwtSecurityConfigurer()
+        val jwtProperties = SecurityJwtConfigurer()
         jwtProperties.secret = JWT_TOKEN_SECRET
         jwtTokenVerifier = JwtTokenVerifier(jwtProperties)
     }
@@ -27,20 +27,34 @@ class JwtTokenVerifierTest {
     fun `JWT language should be en`() {
         val authentication = jwtTokenVerifier?.getAuthentication(JWT_TOKEN_LANGUAGE_EN)
         val details = authentication?.principal as CustomUserDetails
-        assertThat(details.language).isEqualTo("en")
+        details.language shouldBeEqualTo "en"
     }
 
     @Test
     fun `JWT language should be de`() {
         val authentication = jwtTokenVerifier?.getAuthentication(JWT_TOKEN_LANGUAGE_DE)
         val details = authentication?.principal as CustomUserDetails
-        assertThat(details.language).isEqualTo("de")
+        details.language shouldBeEqualTo "de"
     }
 
     @Test
     fun `JWT language is Missing should be default value de`() {
         val authentication = jwtTokenVerifier?.getAuthentication(JWT_TOKEN_LANGUAGE_IS_MISSING)
         val details = authentication?.principal as CustomUserDetails
-        assertThat(details.language).isEqualTo("de")
+        details.language shouldBeEqualTo "de"
+    }
+
+    @Test
+    fun `JWT firstname should be John`() {
+        val authentication = jwtTokenVerifier?.getAuthentication(JWT_TOKEN_LANGUAGE_EN)
+        val details = authentication?.principal as CustomUserDetails
+        details.firstname shouldBeEqualTo "John"
+    }
+
+    @Test
+    fun `JWT lastname should be Doe`() {
+        val authentication = jwtTokenVerifier?.getAuthentication(JWT_TOKEN_LANGUAGE_EN)
+        val details = authentication?.principal as CustomUserDetails
+        details.lastname shouldBeEqualTo "Doe"
     }
 }

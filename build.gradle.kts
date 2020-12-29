@@ -32,7 +32,6 @@ val developerName: String by extra
 val developerEmail: String by extra
 
 subprojects {
-    sonarqube
 
     group = group
     version = version
@@ -40,7 +39,6 @@ subprojects {
     repositories {
         jcenter()
     }
-
 
     println("Enabling Java plugin in project ${project.name}...")
     apply(plugin = "java")
@@ -78,9 +76,34 @@ subprojects {
         useJUnitPlatform()
     }
 
-    tasks.test {
-        finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+    sonarqube
+
+    tasks.jacocoTestReport {
+        reports {
+            xml.isEnabled = true
+            csv.isEnabled = false
+            html.destination = file("${buildDir}/jacocoHtml")
+        }
     }
+    tasks.jacocoTestCoverageVerification {
+        violationRules {
+            rule {
+                enabled = true
+                element = "CLASS"
+                excludes = listOf("com.jacoco.dto.*")
+                limit {
+                    counter = "BRANCH"
+                    minimum = 0.0.toBigDecimal()
+                }
+            }
+        }
+    }
+    tasks.test {
+        // report is always generated after tests run
+        finalizedBy(tasks.jacocoTestReport)
+        finalizedBy(tasks.jacocoTestCoverageVerification)
+    }
+
 
     publishing {
         repositories {

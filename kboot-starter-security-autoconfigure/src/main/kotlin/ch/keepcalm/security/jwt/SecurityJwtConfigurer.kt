@@ -5,9 +5,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import java.nio.charset.StandardCharsets
 import java.util.*
 
-@EnableConfigurationProperties(JwtSecurityConfigurer::class)
+@EnableConfigurationProperties(SecurityJwtConfigurer::class)
 @ConfigurationProperties("keepcalm.security.jwt")
-class JwtSecurityConfigurer(var issuer: String? = "Keepcalm Auth", var audience: String? = "Keepcalm") {
+class SecurityJwtConfigurer(var issuer: String? = "Keepcalm Auth", var audience: String? = "Keepcalm") {
     var secret: String = ""
         set(value) {
             field = Base64.getEncoder().encodeToString(value.toByteArray(StandardCharsets.UTF_8))

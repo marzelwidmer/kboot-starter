@@ -2,7 +2,7 @@
   "groups": [
     {
       "name": "keepcalm.security.endpoints",
-      "type": "ch.keepcalm.security.jwt.JwtSecurityConfigurer"
+      "type": "ch.keepcalm.security.jwt.SecurityJwtConfigurer"
     },
     {
       "name": "keepcalm.security.jwt",
