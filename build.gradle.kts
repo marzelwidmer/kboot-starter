@@ -31,6 +31,9 @@ val developerId: String by extra
 val developerName: String by extra
 val developerEmail: String by extra
 
+
+
+
 subprojects {
 
     group = group
@@ -38,6 +41,7 @@ subprojects {
 
     repositories {
         jcenter()
+        mavenCentral()
     }
 
     println("Enabling Java plugin in project ${project.name}...")

@@ -8,8 +8,9 @@ plugins {
 val springBootVersion: String by extra
 val springSecurityTest: String by extra
 val jjwtVersion: String by extra
-val jacksonModuleKotlin: String by extra
-
+val jacksonModuleKotlinVersion: String by extra
+val kluentVersion : String by extra
+val kotlinVersion : String by extra
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
@@ -18,7 +19,8 @@ dependencies {
     // Kotlin dependencies
     implementation(kotlin("stdlib-jdk8"))
     implementation(kotlin("reflect"))
-    implementation("com.fasterxml.jackson.module", "jackson-module-kotlin", jacksonModuleKotlin)
+    implementation("com.fasterxml.jackson.module", "jackson-module-kotlin", jacksonModuleKotlinVersion)
+
 
     // Spring Boot dependencies
     implementation("org.springframework.boot", "spring-boot-starter-security", springBootVersion)
@@ -33,7 +35,15 @@ dependencies {
     // Test dependencies
     testImplementation("org.springframework.security", "spring-security-test", springSecurityTest)
     testImplementation("org.springframework.boot", "spring-boot-starter-test", springBootVersion)
+
+
+
+    implementation ("io.projectreactor.kotlin:reactor-kotlin-extensions:1.1.1")
+    implementation ("org.jetbrains.kotlinx", "kotlinx-coroutines-reactor", "1.4.2")
+    testImplementation("io.projectreactor:reactor-test:3.1.0.RELEASE")
+
+
     testImplementation(kotlin("test"))
-    testImplementation("org.amshove.kluent", "kluent", "1.64")
+    testImplementation("org.amshove.kluent", "kluent", kluentVersion)
 
 }

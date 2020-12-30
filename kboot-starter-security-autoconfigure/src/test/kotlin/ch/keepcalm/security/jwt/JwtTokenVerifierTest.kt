@@ -1,6 +1,6 @@
 package ch.keepcalm.security.jwt
 
-import ch.keepcalm.security.CustomUserDetails
+import ch.keepcalm.security.user.CustomUserDetails
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
