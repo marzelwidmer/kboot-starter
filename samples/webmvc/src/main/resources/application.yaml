@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: default
+    include: common,security
+
+  application:
+    name: webmvc-application
+
+  main.allow-bean-definition-overriding: true

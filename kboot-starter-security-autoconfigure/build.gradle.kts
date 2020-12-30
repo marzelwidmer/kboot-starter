@@ -22,8 +22,8 @@ dependencies {
 
     // Spring Boot dependencies
     implementation("org.springframework.boot", "spring-boot-starter-security", springBootVersion)
-    implementation("org.springframework.boot", "spring-boot-starter-web", springBootVersion)
-    implementation("org.springframework.boot", "spring-boot-starter-webflux", springBootVersion)
+    compileOnly("org.springframework.boot", "spring-boot-starter-web", springBootVersion)
+    compileOnly("org.springframework.boot", "spring-boot-starter-webflux", springBootVersion)
     implementation("org.springframework.boot", "spring-boot-starter-actuator", springBootVersion)
     // Annotation Processors
     annotationProcessor("org.springframework.boot", "spring-boot-autoconfigure-processor", springBootVersion)

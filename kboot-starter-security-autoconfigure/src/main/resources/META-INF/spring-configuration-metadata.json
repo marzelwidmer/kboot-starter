@@ -6,7 +6,7 @@
     },
     {
       "name": "keepcalm.security.jwt",
-      "type": "ch.keepcalm.security.web.WebSecurityConfigurer"
+      "type": "ch.keepcalm.security.webmvc.WebSecurityConfigurer"
     }
   ],
   "properties": [
