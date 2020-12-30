@@ -1,7 +1,7 @@
 @file:Suppress("Annotator")
 package ch.keepcalm.security.test
 
-import ch.keepcalm.security.CustomUserDetails
+import ch.keepcalm.security.user.CustomUserDetails
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContext

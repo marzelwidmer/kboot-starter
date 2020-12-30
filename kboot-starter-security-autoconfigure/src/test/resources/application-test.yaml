@@ -12,3 +12,11 @@ keepcalm:
         - "/api/user/bar/**"
       unsecured:
         - "/unsecure"
+
+
+logging:
+  level:
+    ch.keepcalm.security: DEBUG
+  pattern:
+    console: "%clr(%-40.40logger{0}){magenta} - %clr(%m){green}%n"
+
