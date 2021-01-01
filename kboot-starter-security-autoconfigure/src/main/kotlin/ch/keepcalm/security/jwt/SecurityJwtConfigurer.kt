@@ -3,7 +3,7 @@ package ch.keepcalm.security.jwt
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import java.nio.charset.StandardCharsets
-import java.util.*
+import java.util.Base64
 
 @EnableConfigurationProperties(SecurityJwtConfigurer::class)
 @ConfigurationProperties("keepcalm.security.jwt")

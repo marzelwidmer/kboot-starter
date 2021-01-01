@@ -6,7 +6,9 @@ import io.jsonwebtoken.SignatureAlgorithm
 import java.nio.charset.StandardCharsets
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.util.*
+import java.util.Base64
+import java.util.Date
+import java.util.UUID
 
 data class Token(
     var language: String? = "de",
@@ -20,7 +22,6 @@ data class Token(
     var userEmail: String? = "joh.doe@keepcalm.ch",
     var expiration: Int = 999999999
 )
-
 
 fun main() {
     println("Welcome to JWT token generator....")
@@ -60,14 +61,14 @@ fun main() {
 
     val generatedToken = generateToken(token)
     println("-----------------")
-    println("export DEMO_TOKEN=${generatedToken} \n")
+    println("export DEMO_TOKEN=$generatedToken \n")
     println(" http :8080/api/document/1 \"Authorization:Bearer  \$DEMO_TOKEN\" -v \n")
     println("-----------------")
     println("###############################")
-    println("export DEMO_TOKEN=${generatedToken} \n")
+    println("export DEMO_TOKEN=$generatedToken \n")
     println(
         "\ncurl http://localhost:8080/api/document/1 " +
-                "-H \"Authorization:Bearer  \$DEMO_TOKEN\" -v  | python -m json.tool \n"
+            "-H \"Authorization:Bearer  \$DEMO_TOKEN\" -v  | python -m json.tool \n"
     )
     println("###############################")
 }
@@ -78,9 +79,11 @@ private fun generateToken(token: Token) =
         .setSubject(token.subject)
         .setIssuedAt(Date())
         .setExpiration(
-            Date.from(token.expiration.toLong().let {
-                LocalDateTime.now().plusSeconds(it).atZone(ZoneId.systemDefault()).toInstant()
-            })
+            Date.from(
+                token.expiration.toLong().let {
+                    LocalDateTime.now().plusSeconds(it).atZone(ZoneId.systemDefault()).toInstant()
+                }
+            )
         )
         .setIssuer(token.issuer)
         .setAudience(token.audience)
@@ -97,4 +100,3 @@ private fun generateToken(token: Token) =
             SignatureAlgorithm.HS256,
             Base64.getEncoder().encodeToString(token.secret.toByteArray(StandardCharsets.UTF_8))
         ).compact()
-

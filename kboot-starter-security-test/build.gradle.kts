@@ -9,7 +9,6 @@ val springBootVersion: String by extra
 val springCloudVersion: String by extra
 val springSecurityTest: String by extra
 
-
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api(project(":kboot-starter-security-autoconfigure"))

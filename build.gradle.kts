@@ -7,19 +7,13 @@ plugins {
     id("io.spring.dependency-management") version "1.0.10.RELEASE" apply false
     kotlin("jvm") version "1.4.21" apply false
     kotlin("plugin.spring") version "1.4.21" apply false
+
+    id("org.jmailen.kotlinter") version "3.3.0"
+
     id("org.sonarqube") version "3.0"
     `java-library`
     `maven-publish`
     jacoco
-}
-
-fun Project.envConfig() = object : kotlin.properties.ReadOnlyProperty<Any?, String?> {
-    override fun getValue(thisRef: Any?, property: kotlin.reflect.KProperty<*>): String? =
-        if (extensions.extraProperties.has(property.name)) {
-            extensions.extraProperties[property.name] as? String
-        } else {
-            System.getenv(property.name)
-        }
 }
 
 val version: String by extra
@@ -31,36 +25,54 @@ val developerId: String by extra
 val developerName: String by extra
 val developerEmail: String by extra
 
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+    }
+}
 
+buildscript {
+    repositories {
+        maven {
+            url = uri("https://plugins.gradle.org/m2/")
+        }
+    }
+    dependencies {
+        classpath("org.jmailen.gradle", "kotlinter-gradle", "3.3.0")
+    }
+}
 
+fun Project.envConfig() = object : kotlin.properties.ReadOnlyProperty<Any?, String?> {
+    override fun getValue(thisRef: Any?, property: kotlin.reflect.KProperty<*>): String? =
+        if (extensions.extraProperties.has(property.name)) {
+            extensions.extraProperties[property.name] as? String
+        } else {
+            System.getenv(property.name)
+        }
+}
 
 subprojects {
 
     group = group
     version = version
 
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
-
-    println("Enabling Java plugin in project ${project.name}...")
     apply(plugin = "java")
-
-    println("Enabling JaCoCo plugin in project ${project.name}...")
     apply(plugin = "jacoco")
-
-    println("Enabling maven-publish plugin in project ${project.name}...")
+    apply(plugin = "org.jmailen.kotlinter")
     apply(plugin = "maven-publish")
-
-    println("Enabling Kotlin Spring plugin in project ${project.name}...")
     apply(plugin = "org.jetbrains.kotlin.plugin.spring")
-
-    println("Enabling Kotlin  Spring plugin in project ${project.name}...")
     apply(plugin = "kotlin-spring")
-
-    println("Enabling Spring Dependency Management plugin in project ${project.name}...")
     apply(plugin = "io.spring.dependency-management")
+
+    kotlinter {
+        ignoreFailures = true
+        indentSize = 4
+        reporters = arrayOf("checkstyle", "plain", "html")
+        experimentalRules = false
+        disabledRules = arrayOf("no-wildcard-imports")
+    }
 
     java {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -86,7 +98,7 @@ subprojects {
         reports {
             xml.isEnabled = true
             csv.isEnabled = false
-            html.destination = file("${buildDir}/jacocoHtml")
+            html.destination = file("$buildDir/jacocoHtml")
         }
     }
     tasks.jacocoTestCoverageVerification {
@@ -108,7 +120,6 @@ subprojects {
         finalizedBy(tasks.jacocoTestCoverageVerification)
     }
 
-
     publishing {
         repositories {
             maven {
@@ -122,7 +133,6 @@ subprojects {
         }
 
         publications {
-            println("--------> Publications ${project.name}")
             create<MavenPublication>(project.name) {
                 from(components["java"])
 

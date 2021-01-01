@@ -18,8 +18,12 @@ class WithMockCustomUserSecurityContextFactory : WithSecurityContextFactory<With
             }
             val principal =
                 CustomUserDetails(
-                    subject = it.username, password = it.password, authorities = authorities,
-                    firstname = it.firstname, lastname = it.lastname, language = it.language
+                    subject = it.username,
+                    password = it.password,
+                    authorities = authorities,
+                    firstname = it.firstname,
+                    lastname = it.lastname,
+                    language = it.language
                 )
             UsernamePasswordAuthenticationToken(principal, "password", principal.authorities)
         }

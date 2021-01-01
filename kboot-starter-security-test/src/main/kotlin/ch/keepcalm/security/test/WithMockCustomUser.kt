@@ -8,9 +8,11 @@ import java.lang.annotation.Inherited
 @Inherited
 @MustBeDocumented
 @WithSecurityContext(factory = WithMockCustomUserSecurityContextFactory::class)
-annotation class WithMockCustomUser(val username: String = "joh.doe@keepcalm.ch",
-                                    val password: String = "JWT-TOKEN",
-                                    val authorities: Array<String> = ["keepcalm.user"],
-                                    val firstname: String = "John",
-                                    val lastname: String = "Doe",
-                                    val language: String = "de")
+annotation class WithMockCustomUser(
+    val username: String = "joh.doe@keepcalm.ch",
+    val password: String = "JWT-TOKEN",
+    val authorities: Array<String> = ["keepcalm.user"],
+    val firstname: String = "John",
+    val lastname: String = "Doe",
+    val language: String = "de"
+)

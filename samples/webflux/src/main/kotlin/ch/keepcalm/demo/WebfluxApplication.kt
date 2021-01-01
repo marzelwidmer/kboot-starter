@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestController
 class WebfluxApplication
 
 fun main(args: Array<String>) {
-	runApplication<WebfluxApplication>(*args)
+    runApplication<WebfluxApplication>(*args)
 }
 
 @RestController
 class UnsecureEndpoint {
-	@GetMapping(value = ["/unsecure"])
-	fun alive() = "ok"
+    @GetMapping(value = ["/unsecure"])
+    fun alive() = "ok"
 }

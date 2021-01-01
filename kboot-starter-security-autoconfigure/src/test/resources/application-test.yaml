@@ -16,7 +16,7 @@ keepcalm:
 
 logging:
   level:
-    ch.keepcalm.security: DEBUG
+    ch.keepcalm.security: TRACE
   pattern:
     console: "%clr(%-40.40logger{0}){magenta} - %clr(%m){green}%n"
 
