@@ -5,4 +5,3 @@ include(
     ":kboot-starter-security-autoconfigure",
     ":kboot-starter-security-test"
 )
-

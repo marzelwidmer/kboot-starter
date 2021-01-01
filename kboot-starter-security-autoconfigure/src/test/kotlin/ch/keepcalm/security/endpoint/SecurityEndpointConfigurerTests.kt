@@ -28,6 +28,6 @@ class SecurityEndpointConfigurerTests {
 
     @Test
     fun `should give back the user Endpoint from the test configuration`() {
-        securityEndpointsConfigurer.user shouldContainAll listOf<String>("/api/user/foo/**","/api/user/bar/**")
+        securityEndpointsConfigurer.user shouldContainAll listOf<String>("/api/user/foo/**", "/api/user/bar/**")
     }
 }

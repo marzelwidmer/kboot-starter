@@ -50,7 +50,6 @@ class WebFluxSecurityConfiguration(private val securityEndpointsConfigurer: Secu
         return apiAuthenticationWebFilter
     }
 
-
     @Bean
     fun jwtAuthenticationConverter(jwtTokenVerifier: JwtTokenVerifier): JwtAuthenticationConverter =
         JwtAuthenticationConverter(jwtTokenVerifier)
@@ -60,5 +59,4 @@ class WebFluxSecurityConfiguration(private val securityEndpointsConfigurer: Secu
 
     @Bean
     fun securityContextRepository(): NoOpServerSecurityContextRepository = NoOpServerSecurityContextRepository.getInstance()
-
 }

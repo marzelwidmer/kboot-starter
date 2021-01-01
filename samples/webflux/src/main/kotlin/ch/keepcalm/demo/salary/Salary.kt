@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/salary")
-class SalaryController() {
+class SalaryController {
     @GetMapping("/{username}")
     fun getSalaryByUsername(@PathVariable username: String) = "Salary username $username"
 }

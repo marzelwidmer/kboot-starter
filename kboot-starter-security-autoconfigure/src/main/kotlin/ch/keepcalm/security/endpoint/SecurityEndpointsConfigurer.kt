@@ -8,7 +8,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @ConfigurationProperties("keepcalm.security.endpoints")
 class SecurityEndpointsConfigurer(var admin: List<String> = listOf("/admin**"), var user: List<String> = listOf("/api**"), var unsecured: List<String> = listOf("/public**")) {
 
-
     private val log = LoggerFactory.getLogger(javaClass)
 
     fun getUserEndpoints() = user.toTypedArray()

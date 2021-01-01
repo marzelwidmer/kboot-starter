@@ -31,4 +31,3 @@ class DocumentController(private val documentService: DocumentService) {
     @GetMapping("/{id}")
     fun getDocumentById(@PathVariable id: Long): Document? = documentService.getDocumentById(id)
 }
-

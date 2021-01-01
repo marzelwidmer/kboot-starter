@@ -32,10 +32,11 @@ class JwtTokenFilter(private val tokenVerifier: JwtTokenVerifier) : GenericFilte
             SecurityContextHolder.getContext().authentication = tokenVerifier.getAuthentication(this)
         }
 
-
     private fun resolveToken(request: HttpServletRequest) =
-        extractBearerTokenFromAuthorizationHeader(request.getHeader(AUTHORIZATION)
-            .also { log.trace("Found Authorization Header: $it") })
+        extractBearerTokenFromAuthorizationHeader(
+            request.getHeader(AUTHORIZATION)
+                .also { log.trace("Found Authorization Header: $it") }
+        )
 
     /**
      *  Extract Bearer token form Authorization Header (Authorization: Bearer eyJhbGciOiJIU.eyJpc3MiOiJIZWxzc.GciOiJIUSGciO)

@@ -18,10 +18,8 @@ class JwtTokenVerifier(private val securityJwtConfigurer: SecurityJwtConfigurer)
         return createPreAuthenticatedAuthenticationToken(CustomUser().createPrincipal(toClaims(token)), token)
     }
 
-    private fun createPreAuthenticatedAuthenticationToken(principal: UserDetails, token: String) : PreAuthenticatedAuthenticationToken =
+    private fun createPreAuthenticatedAuthenticationToken(principal: UserDetails, token: String): PreAuthenticatedAuthenticationToken =
         PreAuthenticatedAuthenticationToken(principal, token, principal.authorities)
-
-
 
     fun validateToken(token: String): Boolean {
         try {
@@ -45,7 +43,6 @@ class JwtTokenVerifier(private val securityJwtConfigurer: SecurityJwtConfigurer)
         .requireAudience(securityJwtConfigurer.audience)
         .requireIssuer(securityJwtConfigurer.issuer)
         .parseClaimsJws(token)
-
 
     private fun toClaims(token: String): Claims =
         Jwts.parser()
