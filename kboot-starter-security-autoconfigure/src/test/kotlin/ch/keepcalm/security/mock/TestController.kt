@@ -1,9 +1,9 @@
 package ch.keepcalm.security.mock
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
+@ResponseBody()
 class TestController {
 
     @GetMapping("/unsecure")
@@ -20,4 +20,11 @@ class TestController {
     fun secureAdmin(): String {
         return "Welcome to the Secure Admin Endpoint."
     }
+
+    @PostMapping("/v1/data/http/authz/allow")
+    fun opaPolicyAllow(): OpaResponse {
+        return OpaResponse()
+    }
 }
+
+data class OpaResponse(val result: String = "true")

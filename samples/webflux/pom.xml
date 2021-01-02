@@ -23,16 +23,9 @@
 		<dependency>
 			<groupId>ch.keepcalm.security</groupId>
 			<artifactId>kboot-starter-security</artifactId>
-			<version>0.0.0-SNAPSHOT</version>
+			<version>0.1.1</version>
 		</dependency>
-		<!-- Test Support -->
-		<!--<dependency>
-			<groupId>ch.keepcalm.security</groupId>
-			<artifactId>kboot-starter-security-test</artifactId>
-			<version>0.0.0-SNAPSHOT</version>
-			<scope>test</scope>
-		</dependency>
--->
+
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
@@ -110,4 +103,26 @@
 		</plugins>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>github</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<repositories>
+				<repository>
+					<id>github</id>
+					<name>GitHub marzelwidmer Apache Maven Packages</name>
+					<url>https://maven.pkg.github.com/marzelwidmer//kboot-starter</url>
+				</repository>
+			</repositories>
+			<distributionManagement>
+				<repository>
+					<id>github</id>
+					<name>GitHub Apache Maven Packages</name>
+					<url>https://maven.pkg.github.com/marzelwidmer/kboot-starter</url>
+				</repository>
+			</distributionManagement>
+		</profile>
+	</profiles>
 </project>

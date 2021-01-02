@@ -28,7 +28,7 @@ class WebfluxEndpointsTests(@Autowired private val testRestTemplate: TestRestTem
     }
 
     @Test
-    fun `Test should give back HTTP 200 for WebFlux unsecure endpoint`() {
+    fun `Test should give back HTTP 200 for unsecure WebMvc endpoint`() {
         val response: ResponseEntity<String> = testRestTemplate.getForEntity("/unsecure", String::class.java)
         assertThat(response.statusCode, equalTo(HttpStatus.OK))
         response.statusCode `should be` HttpStatus.OK
@@ -41,13 +41,13 @@ class WebfluxEndpointsTests(@Autowired private val testRestTemplate: TestRestTem
     }
 
     @Test
-    fun `Test should give back HTTP 401 Unauthorized without JWT for WebFlux protected `() {
-        val response: ResponseEntity<String> = testRestTemplate.getForEntity("/secure", String::class.java)
+    fun `Test should give back HTTP 403 Forbidden without JWT for protected WebFlux endpoint`() {
+        val response: ResponseEntity<String> = testRestTemplate.getForEntity("/api/user/foo", String::class.java)
         response.statusCode `should be` HttpStatus.UNAUTHORIZED
     }
 
     @Test
-    fun `Test should give back HTTP 200 for ROLE User for Endpoint WebFlux protected EndPoint `() {
+    fun `Test should give back HTTP 200 for ROLE User protected WebFlux endpoint `() {
         val url = "/api/user/foo"
 
         val requestHeaders = HttpHeaders()
@@ -60,7 +60,8 @@ class WebfluxEndpointsTests(@Autowired private val testRestTemplate: TestRestTem
     }
 
     @Test
-    fun `Test should give back HTTP 200 for ROLE Admin for Endpoint WebFlux protected EndPoint `() {
+    fun `Test should give back HTTP 200 for ROLE Admin protected WebFlux endpoint `() {
+
         val url = "/api/admin"
 
         val requestHeaders = HttpHeaders()

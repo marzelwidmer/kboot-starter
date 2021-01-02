@@ -21,24 +21,18 @@
 		<kotlin.version>1.4.21</kotlin.version>
 	</properties>
 
-	<repositories>
-		<repository>
-			<id>azure-artifactory</id>
-			<url>http://nexusvm.cloudapp.net/artifactory/maven-public</url>
-		</repository>
-	</repositories>
 
 	<dependencies>
 		<dependency>
 			<groupId>ch.keepcalm.security</groupId>
 			<artifactId>kboot-starter-security</artifactId>
-			<version>0.0.0-SNAPSHOT</version>
+			<version>0.1.1</version>
 		</dependency>
 		<!-- Test Support -->
 		<dependency>
 			<groupId>ch.keepcalm.security</groupId>
 			<artifactId>kboot-starter-security-test</artifactId>
-			<version>0.0.0-SNAPSHOT</version>
+			<version>0.1.1</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -126,39 +120,27 @@
 			</plugin>
 		</plugins>
 	</build>
-	<profiles>
 
+	<profiles>
 		<profile>
 			<id>github</id>
-			<distributionManagement>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<repositories>
 				<repository>
 					<id>github</id>
 					<name>GitHub marzelwidmer Apache Maven Packages</name>
-					<url>https://maven.pkg.github.com/marzelwidmer/kboot-jwt-spring-boot-starter</url>
-				</repository>
-			</distributionManagement>
-		</profile>
-		<!-- release -->
-		<profile>
-			<id>azure-artifactory</id>
-			<!-- Distribution -->
-			<distributionManagement>
-				<repository>
-					<id>azure-nexus</id>
-					<url>http://nexusvm.cloudapp.net/artifactory/libs-release-local</url>
-				</repository>
-				<snapshotRepository>
-					<id>azure-artifactory</id>
-					<uniqueVersion>false</uniqueVersion>
-					<url>http://nexusvm.cloudapp.net/artifactory/libs-snapshot-local</url>
-				</snapshotRepository>
-			</distributionManagement>
-			<repositories>
-				<repository>
-					<id>azure-artifactory</id>
-					<url>http://nexusvm.cloudapp.net/artifactory/maven-public</url>
+					<url>https://maven.pkg.github.com/marzelwidmer//kboot-starter</url>
 				</repository>
 			</repositories>
+			<distributionManagement>
+				<repository>
+					<id>github</id>
+					<name>GitHub Apache Maven Packages</name>
+					<url>https://maven.pkg.github.com/marzelwidmer/kboot-starter</url>
+				</repository>
+			</distributionManagement>
 		</profile>
 	</profiles>
 </project>

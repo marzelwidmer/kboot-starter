@@ -1,6 +1,7 @@
 description = "Spring Boot Starter - Security Test Support - kboot-starter-security-test"
 
 plugins {
+    java
     kotlin("jvm")
     kotlin("plugin.spring")
 }

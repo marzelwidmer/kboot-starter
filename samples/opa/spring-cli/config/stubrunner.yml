@@ -1,0 +1,6 @@
+stubrunner:
+  stubsMode: LOCAL
+  workOffline: true
+  ids:
+    - ch.keepcalm.security:kboot-starter-security-autoconfigure:+:stubs:8181
+
