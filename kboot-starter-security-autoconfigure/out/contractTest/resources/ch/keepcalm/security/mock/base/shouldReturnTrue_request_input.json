@@ -1,0 +1,10 @@
+{
+  "input" : {
+    "name" : "john.doe@keepcalm.ch",
+    "authorities" : [ {
+      "authority" : "keepcalm.admin"
+    } ],
+    "method" : "GET",
+    "path" : [ "", "api", "admin" ]
+  }
+}

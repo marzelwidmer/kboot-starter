@@ -1,0 +1,22 @@
+keepcalm:
+  security:
+    jwt:
+      issuer: Keepcalm Auth Test
+      audience: Keepcalm Test
+      secret: s3cretP@ssw0rd
+    endpoints:
+      admin:
+        - "/api/admin/**"
+      user:
+        - "/api/user/foo/**"
+        - "/api/user/bar/**"
+      unsecured:
+        - "/unsecure"
+
+
+logging:
+  level:
+    ch.keepcalm.security: TRACE
+  pattern:
+    console: "%clr(%-40.40logger{0}){magenta} - %clr(%m){green}%n"
+

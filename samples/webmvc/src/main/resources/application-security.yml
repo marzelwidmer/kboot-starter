@@ -1,5 +1,6 @@
 keepcalm:
   security:
+    access-decision-voter: OPA
     jwt:
       issuer: Keepcalm Auth
       audience: Keepcalm
@@ -11,3 +12,4 @@ keepcalm:
         - "/api/document/**"
       unsecured:
         - "/unsecure"
+

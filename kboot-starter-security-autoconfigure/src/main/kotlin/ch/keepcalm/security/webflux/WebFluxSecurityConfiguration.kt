@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.core.annotation.Order
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder
@@ -23,6 +24,7 @@ import org.springframework.security.web.server.context.NoOpServerSecurityContext
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 @EnableConfigurationProperties(SecurityEndpointsConfigurer::class, SecurityJwtConfigurer::class, SecurityProperties::class)
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true, jsr250Enabled = true)
+@Order(100)
 class WebFluxSecurityConfiguration(private val securityEndpointsConfigurer: SecurityEndpointsConfigurer) {
 
     @Bean
@@ -33,9 +35,9 @@ class WebFluxSecurityConfiguration(private val securityEndpointsConfigurer: Secu
             .httpBasic().disable()
             .addFilterAt(apiAuthenticationWebFilter, SecurityWebFiltersOrder.AUTHENTICATION)
             .authorizeExchange()
-            .pathMatchers(*securityEndpointsConfigurer.getAdminEndpoints()).hasAuthority(ROLE_KEEPCALM_ADMIN)
-            .pathMatchers(*securityEndpointsConfigurer.getUserEndpoints()).hasAnyAuthority(ROLE_KEEPCALM_ADMIN, ROLE_KEEPCALM_USER)
-            .pathMatchers(*securityEndpointsConfigurer.getUnsecuredEndpoints()).permitAll()
+            .pathMatchers(*securityEndpointsConfigurer.adminEndPoints).hasAuthority(ROLE_KEEPCALM_ADMIN)
+            .pathMatchers(*securityEndpointsConfigurer.userEndPoints).hasAnyAuthority(ROLE_KEEPCALM_ADMIN, ROLE_KEEPCALM_USER)
+            .pathMatchers(*securityEndpointsConfigurer.unsecureEndPoints).permitAll()
             .anyExchange().authenticated()
         return http.build()
     }

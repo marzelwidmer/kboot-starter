@@ -1,15 +1,14 @@
 description = "Spring Boot Starter"
 
 plugins {
-    base
-    id("idea")
     id("org.springframework.boot") version "2.4.1" apply false
     id("io.spring.dependency-management") version "1.0.10.RELEASE" apply false
     kotlin("jvm") version "1.4.21" apply false
     kotlin("plugin.spring") version "1.4.21" apply false
 
+    base
+    id("idea")
     id("org.jmailen.kotlinter") version "3.3.0"
-
     id("org.sonarqube") version "3.0"
     `java-library`
     `maven-publish`
@@ -25,22 +24,19 @@ val developerId: String by extra
 val developerName: String by extra
 val developerEmail: String by extra
 
-allprojects {
-    repositories {
-        google()
-        jcenter()
-        mavenCentral()
-    }
-}
-
 buildscript {
     repositories {
         maven {
             url = uri("https://plugins.gradle.org/m2/")
+            url = uri("https://repo.spring.io/snapshot")
+            url = uri("https://repo.spring.io/milestone")
+            url = uri("https://repo.spring.io/release")
         }
     }
     dependencies {
         classpath("org.jmailen.gradle", "kotlinter-gradle", "3.3.0")
+        classpath("org.springframework.cloud", "spring-cloud-contract-gradle-plugin", "3.0.0")
+        classpath("org.springframework.cloud", "spring-cloud-contract-spec-kotlin", "3.0.0")
     }
 }
 
@@ -55,6 +51,13 @@ fun Project.envConfig() = object : kotlin.properties.ReadOnlyProperty<Any?, Stri
 
 subprojects {
 
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+        maven { url = uri("https://repo.spring.io/milestone") }
+    }
+
     group = group
     version = version
 
@@ -62,7 +65,6 @@ subprojects {
     apply(plugin = "jacoco")
     apply(plugin = "org.jmailen.kotlinter")
     apply(plugin = "maven-publish")
-    apply(plugin = "org.jetbrains.kotlin.plugin.spring")
     apply(plugin = "kotlin-spring")
     apply(plugin = "io.spring.dependency-management")
 
@@ -119,6 +121,11 @@ subprojects {
         finalizedBy(tasks.jacocoTestReport)
         finalizedBy(tasks.jacocoTestCoverageVerification)
     }
+    tasks.withType<Delete> {
+        doFirst {
+            delete("~/.m2/repository/ch/keepcalm/security/")
+        }
+    }
 
     publishing {
         repositories {
@@ -131,11 +138,9 @@ subprojects {
                 }
             }
         }
-
         publications {
             create<MavenPublication>(project.name) {
                 from(components["java"])
-
                 pom {
                     name.set(projectName)
                     description.set(projectDescription)

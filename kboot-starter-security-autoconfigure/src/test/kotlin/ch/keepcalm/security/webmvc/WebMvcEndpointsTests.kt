@@ -26,26 +26,20 @@ class WebMvcEndpointsTests(@Autowired private val testRestTemplate: TestRestTemp
     }
 
     @Test
-    fun `Test should give back HTTP 200 for WebMvc unsecure endpoint`() {
+    fun `Test should give back HTTP 200 for unsecure WebMvc endpoint`() {
         val response: ResponseEntity<String> = testRestTemplate.getForEntity("/unsecure", String::class.java)
         assertThat(response.statusCode, equalTo(HttpStatus.OK))
         response.statusCode `should be` HttpStatus.OK
     }
 
     @Test
-    fun `Test should give back HTTP 403 Forbidden without JWT for WebMvc protected endpoint `() {
+    fun `Test should give back HTTP 403 Forbidden without JWT for protected WebMvc endpoint`() {
         val response: ResponseEntity<String> = testRestTemplate.getForEntity("/api/user/foo", String::class.java)
         response.statusCode `should be` HttpStatus.FORBIDDEN
     }
 
     @Test
-    fun `Test should give back HTTP 403 Forbidden without JWT for WebMvc protected `() {
-        val response: ResponseEntity<String> = testRestTemplate.getForEntity("/secure", String::class.java)
-        response.statusCode `should be` HttpStatus.FORBIDDEN
-    }
-
-    @Test
-    fun `Test should give back HTTP 200 for ROLE User for Endpoint  WebMvc protected EndPoint `() {
+    fun `Test should give back HTTP 200 for ROLE User protected WebMvc endpoint `() {
         val url = "/api/user/foo"
 
         val requestHeaders = HttpHeaders()
@@ -58,7 +52,7 @@ class WebMvcEndpointsTests(@Autowired private val testRestTemplate: TestRestTemp
     }
 
     @Test
-    fun `Test should give back HTTP 200 for ROLE Admin for Endpoint  WebMvc protected EndPoint `() {
+    fun `Test should give back HTTP 200 for ROLE Admin protected WebMvc endpoint `() {
         val url = "/api/admin"
 
         val requestHeaders = HttpHeaders()
