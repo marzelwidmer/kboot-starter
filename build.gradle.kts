@@ -126,41 +126,4 @@ subprojects {
             delete("~/.m2/repository/ch/keepcalm/security/")
         }
     }
-
-    publishing {
-        repositories {
-            maven {
-                name = "GitHubPackages"
-                url = uri("https://maven.pkg.github.com/marzelwidmer/kboot-starter")
-                credentials {
-                    username = System.getenv("GITHUB_ACTOR")
-                    password = System.getenv("GITHUB_TOKEN")
-                }
-            }
-        }
-        publications {
-            create<MavenPublication>(project.name) {
-                from(components["java"])
-                pom {
-                    name.set(projectName)
-                    description.set(projectDescription)
-                    url.set(projectRepository)
-
-                    licenses {
-                        license {
-                            name.set("The Apache License, Version 2.0")
-                            url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-                        }
-                    }
-                    developers {
-                        developer {
-                            id.set(developerId)
-                            name.set(developerName)
-                            email.set(developerEmail)
-                        }
-                    }
-                }
-            }
-        }
-    }
 }
