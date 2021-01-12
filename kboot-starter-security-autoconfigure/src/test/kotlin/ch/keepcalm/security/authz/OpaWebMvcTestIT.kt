@@ -28,7 +28,7 @@ import org.springframework.test.context.ActiveProfiles
 @AutoConfigureWebTestClient
 @AutoConfigureStubRunner(
     ids = ["ch.keepcalm.security:kboot-starter-security-autoconfigure:+:stubs:8181"],
-    stubsMode = StubRunnerProperties.StubsMode.LOCAL
+    stubsMode = StubRunnerProperties.StubsMode.REMOTE
 )
 @DirtiesContext
 class OpaWebMvcTestIT(@Autowired private val testRestTemplate: TestRestTemplate) {
