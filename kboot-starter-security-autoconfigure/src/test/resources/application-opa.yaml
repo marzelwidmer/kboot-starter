@@ -19,8 +19,6 @@ keepcalm:
     access-decision-voter.:
       voters: OPA
       url: http://localhost:8181/v1/data/http/authz/allow
-#      url: http://localhost:8181/v1/data/keepcalm/policy/allow
-
 
 logging:
   level:
