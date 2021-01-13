@@ -23,7 +23,7 @@
 		<dependency>
 			<groupId>ch.keepcalm.security</groupId>
 			<artifactId>kboot-starter-security</artifactId>
-			<version>0.1.1</version>
+			<version>0.2.0</version>
 		</dependency>
 
 		<dependency>
@@ -113,7 +113,7 @@
 				<repository>
 					<id>github</id>
 					<name>GitHub marzelwidmer Apache Maven Packages</name>
-					<url>https://maven.pkg.github.com/marzelwidmer//kboot-starter</url>
+					<url>https://maven.pkg.github.com/marzelwidmer/kboot-starter</url>
 				</repository>
 			</repositories>
 			<distributionManagement>

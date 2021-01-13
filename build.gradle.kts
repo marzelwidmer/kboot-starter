@@ -31,6 +31,7 @@ buildscript {
             url = uri("https://repo.spring.io/snapshot")
             url = uri("https://repo.spring.io/milestone")
             url = uri("https://repo.spring.io/release")
+            url = uri("https://maven.pkg.github.com/marzelwidmer/kboot-starter")
         }
     }
     dependencies {

@@ -29,7 +29,11 @@ contracts {
     testFramework.set(org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5)
     packageWithBaseClasses.set("ch.keepcalm.security.mock.base")
 }
-
+repositories {
+    maven {
+        url = uri("https://maven.pkg.github.com/marzelwidmer/kboot-starter")
+    }
+}
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api("io.jsonwebtoken", "jjwt", jjwtVersion)

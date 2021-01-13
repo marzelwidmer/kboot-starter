@@ -1,6 +1,6 @@
 stubrunner:
-  stubsMode: LOCAL
-  workOffline: true
+  stubsMode: REMOTE
+#  workOffline: true
+  repository-root: https://maven.pkg.github.com/marzelwidmer/kboot-starter
   ids:
     - ch.keepcalm.security:kboot-starter-security-autoconfigure:+:stubs:8181
-

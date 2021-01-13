@@ -18,7 +18,7 @@ import org.springframework.http.*
 import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.ActiveProfiles
 
-@Disabled
+//@Disabled
 @SpringBootTest(
     properties = ["spring.main.web-application-type=servlet"],
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -28,7 +28,8 @@ import org.springframework.test.context.ActiveProfiles
 @AutoConfigureWebTestClient
 @AutoConfigureStubRunner(
     ids = ["ch.keepcalm.security:kboot-starter-security-autoconfigure:+:stubs:8181"],
-    stubsMode = StubRunnerProperties.StubsMode.REMOTE
+    stubsMode = StubRunnerProperties.StubsMode.REMOTE,
+    repositoryRoot = "https://maven.pkg.github.com/marzelwidmer/kboot-starter"
 )
 @DirtiesContext
 class OpaWebMvcTestIT(@Autowired private val testRestTemplate: TestRestTemplate) {
