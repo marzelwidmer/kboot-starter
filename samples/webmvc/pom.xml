@@ -28,6 +28,7 @@
 			<artifactId>kboot-starter-security</artifactId>
 			<version>0.2.0</version>
 		</dependency>
+
 		<!-- Test Support -->
 		<dependency>
 			<groupId>ch.keepcalm.security</groupId>

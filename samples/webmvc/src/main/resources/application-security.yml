@@ -1,6 +1,8 @@
 keepcalm:
   security:
-    access-decision-voter: OPA
+    access-decision-voter:
+      voters: OPA
+      url: http://localhost:8181/v1/data/http/authz/allow
     jwt:
       issuer: Keepcalm Auth
       audience: Keepcalm

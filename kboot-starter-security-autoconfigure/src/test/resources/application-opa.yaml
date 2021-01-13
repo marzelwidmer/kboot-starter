@@ -16,7 +16,7 @@ keepcalm:
         - "/api/user/bar/**"
       unsecured:
         - "/unsecure"
-    access-decision-voter.:
+    access-decision-voter:
       voters: OPA
       url: http://localhost:8181/v1/data/http/authz/allow
 
