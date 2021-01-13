@@ -18,17 +18,17 @@ import org.springframework.http.*
 import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.ActiveProfiles
 
-//@Disabled
+@Disabled
 @SpringBootTest(
     properties = ["spring.main.web-application-type=servlet"],
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
 )
 @ActiveProfiles("opa")
 @Import(value = [TestController::class])
 @AutoConfigureWebTestClient
 @AutoConfigureStubRunner(
     ids = ["ch.keepcalm.security:kboot-starter-security-autoconfigure:+:stubs:8181"],
-    stubsMode = StubRunnerProperties.StubsMode.REMOTE,
+    stubsMode = StubRunnerProperties.StubsMode.LOCAL,
     repositoryRoot = "https://maven.pkg.github.com/marzelwidmer/kboot-starter"
 )
 @DirtiesContext
