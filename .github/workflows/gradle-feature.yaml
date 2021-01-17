@@ -92,7 +92,7 @@ jobs:
       # Publish Artifactory
       - name: Publish Package (Artifactory)
 #        if: ${{ env.PREVIOUS_VERSION  != env.VERSION }}
-        run: gradle publish -Pversion=$VERSION
+        run: gradle publishAllPublicationsToAzureArtifactoryRepository -Pversion=$VERSION
         env:
           MAVEN_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.ARTIFACTORY_PASSWORD }}

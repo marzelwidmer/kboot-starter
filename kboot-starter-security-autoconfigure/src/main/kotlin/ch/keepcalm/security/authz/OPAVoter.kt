@@ -16,8 +16,6 @@ import org.springframework.security.web.FilterInvocation
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
 import java.util.*
-import java.awt.print.Book
-
 
 @ConditionalOnProperty(prefix = "keepcalm.security", name = ["access-decision-voter.voters"], havingValue = "OPA")
 @Component
@@ -42,7 +40,7 @@ class OPAVoter(private val uri: String = "http://localhost:8181/v1/data/authz/al
         val method = filterInvocation?.request?.method
 
         val path: List<String>? = pathAsList(filterInvocation)
-        val input : Map<String, Any?> = createInput(name, authorities, method, path)
+        val input: Map<String, Any?> = createInput(name, authorities, method, path)
         val requestNode: ObjectNode? = createRequestNode(input)
         val responseNode: JsonNode? = createResponseNode(requestNode)
 
