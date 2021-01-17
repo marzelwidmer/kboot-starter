@@ -70,6 +70,7 @@ dependencies {
     testImplementation("org.springframework.cloud", "spring-cloud-starter-contract-verifier")
     testImplementation("org.springframework.cloud", "spring-cloud-contract-spec-kotlin")
     testImplementation("org.springframework.cloud", "spring-cloud-starter-contract-stub-runner")
+
 }
 
 publishing {
@@ -87,6 +88,7 @@ publishing {
         create<MavenPublication>(project.name) {
             from(components["java"])
             artifact(tasks.named("verifierStubsJar"))
+
             // https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
             versionMapping {
                 usage("java-api") {
