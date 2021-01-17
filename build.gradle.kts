@@ -50,6 +50,11 @@ fun Project.envConfig() = object : kotlin.properties.ReadOnlyProperty<Any?, Stri
         }
 }
 
+allprojects {
+    group = group
+    version = version
+}
+
 subprojects {
 
     repositories {
@@ -58,9 +63,6 @@ subprojects {
         jcenter()
         maven { url = uri("https://repo.spring.io/milestone") }
     }
-
-    group = group
-    version = version
 
     apply(plugin = "java")
     apply(plugin = "jacoco")
@@ -146,7 +148,28 @@ subprojects {
         }
         publications {
             create<MavenPublication>("azure-artifactory") {
+
                 from(components["java"])
+
+                pom {
+                    name.set(System.getProperty("projectName"))
+                    description.set(System.getProperty("projectDescription"))
+                    url.set(System.getProperty("projectRepository"))
+
+                    licenses {
+                        license {
+                            name.set("The Apache License, Version 2.0")
+                            url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                        }
+                    }
+                    developers {
+                        developer {
+                            id.set(System.getProperty("developerId"))
+                            name.set(System.getProperty("developerName"))
+                            email.set(System.getProperty("developerEmail"))
+                        }
+                    }
+                }
             }
         }
     }
@@ -164,7 +187,9 @@ subprojects {
         }
         publications {
             create<MavenPublication>(project.name) {
+
                 from(components["java"])
+
                 pom {
                     name.set(System.getProperty("projectName"))
                     description.set(System.getProperty("projectDescription"))

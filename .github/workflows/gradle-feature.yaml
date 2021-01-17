@@ -81,18 +81,11 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      # SetUp Artifactory
-      - name: SetUp Repository (Artifactory)
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-          server-id: azure-artifactory
-          server-username: MAVEN_USERNAME
-          server-password: MAVEN_PASSWORD
+
       # Publish Artifactory
       - name: Publish Package (Artifactory)
 #        if: ${{ env.PREVIOUS_VERSION  != env.VERSION }}
         run: gradle publishAllPublicationsToAzureArtifactoryRepository -Pversion=$VERSION
         env:
-          MAVEN_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.ARTIFACTORY_PASSWORD }}
+          ARTIFACTORY_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
+          ARTIFACTORY_PASSWORD: ${{ secrets.ARTIFACTORY_PASSWORD }}
