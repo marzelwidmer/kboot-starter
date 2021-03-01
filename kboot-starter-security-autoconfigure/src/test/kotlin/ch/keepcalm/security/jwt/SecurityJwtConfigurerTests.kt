@@ -18,17 +18,17 @@ class SecurityJwtConfigurerTests {
 
     @Test
     fun `should give back the issuer from the test configuration`() {
-        securityJwtConfigurer.issuer `should be equal to` "Keepcalm Auth Test"
+        securityJwtConfigurer.issuer `should be equal to` "Keepcalm Auth"
     }
 
     @Test
     fun `should give back the audience from the test configuration`() {
-        securityJwtConfigurer.audience `should be equal to` "Keepcalm Test"
+        securityJwtConfigurer.audience `should be equal to` "Keepcalm"
     }
 
     @Test
     fun `should give back the secret from the test configuration`() {
         val decodedSecret: ByteArray = Base64.getDecoder().decode(securityJwtConfigurer.secret)
-        String(decodedSecret) `should be equal to` "s3cretP@ssw0rd"
+        String(decodedSecret) `should be equal to` "thisIsAVerySecureAndLongJWTSecretThatCanBeUsedForTesting"
     }
 }

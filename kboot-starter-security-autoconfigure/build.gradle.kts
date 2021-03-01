@@ -32,7 +32,10 @@ contracts {
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api("io.jsonwebtoken", "jjwt", jjwtVersion)
+    api("io.jsonwebtoken", "jjwt-api", jjwtVersion)
+    runtimeOnly("io.jsonwebtoken", "jjwt-impl", jjwtVersion)
+    runtimeOnly("io.jsonwebtoken", "jjwt-jackson", jjwtVersion)
+
 
     // Kotlin dependencies
     implementation(kotlin("stdlib-jdk8"))

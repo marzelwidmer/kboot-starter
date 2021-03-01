@@ -1,5 +1,7 @@
 package ch.keepcalm.security.webmvc
 
+import ch.keepcalm.security.JWT_TOKEN_ADMIN
+import ch.keepcalm.security.JWT_TOKEN_USER
 import ch.keepcalm.security.mock.TestController
 import org.amshove.kluent.`should be`
 import org.amshove.kluent.shouldNotBeNull
@@ -19,11 +21,6 @@ import org.springframework.test.context.ActiveProfiles
 @Import(value = [TestController::class])
 @AutoConfigureWebTestClient
 class WebMvcEndpointsTests(@Autowired private val testRestTemplate: TestRestTemplate) {
-
-    companion object {
-        private const val JWT_TOKEN_USER = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhZjM1ZjY0ZS1hMjFjLTQxNmUtODE4OC1iMjUxZjZhYmY1MGIiLCJzdWIiOiJqb2huLmRvZUBrZWVwY2FsbS5jaCIsImlhdCI6MTYwOTIyNjM3OSwiZXhwIjoxNjA5NTcxMjcyOTksImlzcyI6IktlZXBjYWxtIEF1dGggVGVzdCIsImF1ZCI6IktlZXBjYWxtIFRlc3QiLCJsYW5ndWFnZSI6ImVuIiwibGFzdG5hbWUiOiJEb2UiLCJmaXJzdG5hbWUiOiJKb2huIiwiZW1haWwiOiJqb2guZG9lQGtlZXBjYWxtLmNoIiwicm9sZXMiOiJrZWVwY2FsbS51c2VyIn0.yjch1wvNM_3Ix5JbPlfIiwW2qIJ9Vxw5WF8bV7DA9oU"
-        private const val JWT_TOKEN_ADMIN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhZjM1ZjY0ZS1hMjFjLTQxNmUtODE4OC1iMjUxZjZhYmY1MGIiLCJzdWIiOiJqb2huLmRvZUBrZWVwY2FsbS5jaCIsImlhdCI6MTYwOTIyNjM3OSwiZXhwIjoxNjA5NTcxMjcyOTksImlzcyI6IktlZXBjYWxtIEF1dGggVGVzdCIsImF1ZCI6IktlZXBjYWxtIFRlc3QiLCJsYW5ndWFnZSI6ImVuIiwibGFzdG5hbWUiOiJEb2UiLCJmaXJzdG5hbWUiOiJKb2huIiwiZW1haWwiOiJqb2guZG9lQGtlZXBjYWxtLmNoIiwicm9sZXMiOiJrZWVwY2FsbS5hZG1pbiJ9.rLT3MIsIgpT-sqg8ihMtmAnQoiLntkvoVa972IYOhS0"
-    }
 
     @Test
     fun `Test should give back HTTP 200 for unsecure WebMvc endpoint`() {

@@ -4,7 +4,7 @@ keepcalm:
     jwt:
       issuer: Keepcalm Auth
       audience: Keepcalm
-      secret: s3cretP@ssw0rd
+      secret: thisIsAVerySecureAndLongJWTSecretThatCanBeUsedForTesting
     endpoints:
       admin:
         - "/api/salary/**"
