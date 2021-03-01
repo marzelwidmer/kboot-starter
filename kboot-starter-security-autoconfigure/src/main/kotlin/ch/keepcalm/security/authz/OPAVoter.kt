@@ -1,7 +1,7 @@
 package ch.keepcalm.security.authz
 
-import ch.keepcalm.security.getAuthenticationName
-import ch.keepcalm.security.getAuthorities
+import ch.keepcalm.security.securityGetAuthenticationName
+import ch.keepcalm.security.securityGetAuthorities
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
@@ -16,7 +16,6 @@ import org.springframework.security.web.FilterInvocation
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
 import java.util.*
-import java.awt.print.Book
 
 
 @ConditionalOnProperty(prefix = "keepcalm.security", name = ["access-decision-voter.voters"], havingValue = "OPA")
@@ -37,8 +36,8 @@ class OPAVoter(private val uri: String = "http://localhost:8181/v1/data/authz/al
     }
 
     override fun vote(authentication: Authentication?, filterInvocation: FilterInvocation?, mutableCollection: MutableCollection<ConfigAttribute>?): Int {
-        val name = getAuthenticationName()
-        val authorities = getAuthorities()
+        val name = securityGetAuthenticationName()
+        val authorities = securityGetAuthorities()
         val method = filterInvocation?.request?.method
 
         val path: List<String>? = pathAsList(filterInvocation)

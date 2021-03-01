@@ -9,6 +9,7 @@ plugins {
 val springBootVersion: String by extra
 val springCloudVersion: String by extra
 val springSecurityTest: String by extra
+val kluentVersion: String by extra
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
@@ -24,6 +25,8 @@ dependencies {
 
     // Test dependencies
     testImplementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
+    testImplementation("org.amshove.kluent", "kluent", kluentVersion)
+
 }
 
 publishing {

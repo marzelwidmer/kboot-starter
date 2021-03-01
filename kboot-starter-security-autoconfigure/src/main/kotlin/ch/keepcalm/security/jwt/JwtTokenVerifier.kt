@@ -38,15 +38,16 @@ class JwtTokenVerifier(private val securityJwtConfigurer: SecurityJwtConfigurer)
      * @param token String
      * @return Jws<Claims>
      */
-    fun verify(token: String): Jws<Claims> = Jwts.parser()
+    fun verify(token: String): Jws<Claims> = Jwts.parserBuilder()
         .setSigningKey(securityJwtConfigurer.secret)
-        .requireAudience(securityJwtConfigurer.audience)
         .requireIssuer(securityJwtConfigurer.issuer)
+        .requireAudience(securityJwtConfigurer.audience)
+        .build()
         .parseClaimsJws(token)
 
-    private fun toClaims(token: String): Claims =
-        Jwts.parser()
-            .setSigningKey(securityJwtConfigurer.secret)
-            .parseClaimsJws(token)
-            .body
+
+    private fun toClaims(token: String): Claims = Jwts.parserBuilder()
+        .setSigningKey(securityJwtConfigurer.secret)
+        .build()
+        .parseClaimsJws(token).body
 }

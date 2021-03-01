@@ -5,9 +5,9 @@ spring:
 keepcalm:
   security:
     jwt:
-      issuer: Keepcalm Auth Test
-      audience: Keepcalm Test
-      secret: s3cretP@ssw0rd
+      issuer: Keepcalm Auth
+      audience: Keepcalm
+    secret: thisIsAVerySecureAndLongJWTSecretThatCanBeUsedForTesting
     endpoints:
       admin:
         - "/api/admin/**"
