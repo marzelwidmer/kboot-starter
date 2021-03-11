@@ -22,7 +22,6 @@ import org.springframework.test.context.ActiveProfiles
 @AutoConfigureWebTestClient
 class WebfluxEndpointsTests(@Autowired private val testRestTemplate: TestRestTemplate) {
 
-
     @Test
     fun `Test should give back HTTP 200 for unsecure WebMvc endpoint`() {
         val response: ResponseEntity<String> = testRestTemplate.getForEntity("/unsecure", String::class.java)

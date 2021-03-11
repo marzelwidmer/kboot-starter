@@ -1,6 +1,8 @@
 package ch.keepcalm.security.webmvc
 
 import ch.keepcalm.security.ROLE_ACTUATOR
+import ch.keepcalm.security.ROLE_KEEPCALM_ADMIN
+import ch.keepcalm.security.ROLE_KEEPCALM_USER
 import ch.keepcalm.security.authz.AccessDecisionVoterConfigurer
 import ch.keepcalm.security.authz.OPAVoter
 import ch.keepcalm.security.endpoint.SecurityEndpointsConfigurer
@@ -28,6 +30,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer
 import org.springframework.security.config.http.SessionCreationPolicy.STATELESS
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.web.access.expression.WebExpressionVoter
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
@@ -48,6 +51,8 @@ class WebMvcSecurityConfiguration(
     @Order(1)
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
+        SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL)
+
         http
             .csrf().disable()
             .formLogin().disable()
@@ -56,11 +61,20 @@ class WebMvcSecurityConfiguration(
             .sessionManagement().sessionCreationPolicy(STATELESS)
             .and()
             .authorizeRequests()
-            .antMatchers(*securityEndpointsConfigurer.adminEndPoints).hasAuthority(ch.keepcalm.security.ROLE_KEEPCALM_ADMIN)
-            .antMatchers(*securityEndpointsConfigurer.userEndPoints).hasAnyAuthority(ch.keepcalm.security.ROLE_KEEPCALM_ADMIN, ch.keepcalm.security.ROLE_KEEPCALM_USER)
+            .antMatchers(*securityEndpointsConfigurer.adminEndPoints).hasAuthority(
+                ROLE_KEEPCALM_ADMIN
+            )
+            .antMatchers(*securityEndpointsConfigurer.userEndPoints).hasAnyAuthority(
+                ROLE_KEEPCALM_ADMIN,
+                ROLE_KEEPCALM_USER
+            )
             .antMatchers(*securityEndpointsConfigurer.unsecureEndPoints).permitAll()
             .requestMatchers(EndpointRequest.to(HealthEndpoint::class.java, InfoEndpoint::class.java)).permitAll()
             .requestMatchers(EndpointRequest.toAnyEndpoint()).hasAnyRole(*getAdminRoles(securityProperties).toTypedArray())
+        configureOpa(http)
+    }
+
+    private fun configureOpa(http: HttpSecurity) {
         if (configurableEnvironment.getProperty("keepcalm.security.access-decision-voter.voters").equals("OPA")) {
             configureOpaAccessDecisionManager(http)
         }

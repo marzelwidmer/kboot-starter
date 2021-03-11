@@ -9,7 +9,6 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.*
 
-
 fun main() {
     println("Welcome to JWT token generator....")
     println("subject : [john.doe@keepcalm.ch]")
@@ -51,18 +50,16 @@ fun main() {
     println(" \n \"${generatedToken}\" \n")
     println("###############################")
 
-
     println("-----------------")
     println("export token=\"${generatedToken}\" \n")
     println(" http :9009/api/customers \"Authorization:Bearer  \$token\" -v \n")
     println("-----------------")
 
-
     println("###############################")
     println("export token=\"${generatedToken}\" \n")
     println(
         "\ncurl http://localhost:9009/api/customers " +
-                "-H \"Authorization:Bearer  \$token\" -v  | python -m json.tool \n"
+            "-H \"Authorization:Bearer  \$token\" -v  | python -m json.tool \n"
     )
     println("###############################")
 }
@@ -73,9 +70,11 @@ fun generateToken(token: Token): String =
         .setSubject(token.subject)
         .setIssuedAt(Date())
         .setExpiration(
-            Date.from(token.expiration.toLong().let {
-                LocalDateTime.now().plusSeconds(it).atZone(ZoneId.systemDefault()).toInstant()
-            })
+            Date.from(
+                token.expiration.toLong().let {
+                    LocalDateTime.now().plusSeconds(it).atZone(ZoneId.systemDefault()).toInstant()
+                }
+            )
         )
         .setIssuer(token.issuer)
         .setAudience(token.audience)
@@ -92,7 +91,6 @@ fun generateToken(token: Token): String =
         )
         .compact()
 
-
 data class Token(
     var language: String? = "de",
     var firstname: String? = "John",
@@ -105,4 +103,3 @@ data class Token(
     var userEmail: String? = "joh.doe@keepcalm.ch",
     var expiration: Int = 999999999
 )
-

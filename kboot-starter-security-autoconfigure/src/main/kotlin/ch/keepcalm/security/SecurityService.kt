@@ -11,7 +11,7 @@ class SecurityService {
     fun isCurrentUserInRoleAdmin() = ch.keepcalm.security.securityIsCurrentUserInRoleAdmin()
     fun isCurrentUserInRoleUser() = ch.keepcalm.security.securityIsCurrentUserInRoleUser()
     fun getRoles() = ch.keepcalm.security.securityGetRoles()
-    fun getPrincipalFirstName() =ch.keepcalm.security.securityUserFirstName()
+    fun getPrincipalFirstName() = ch.keepcalm.security.securityUserFirstName()
     fun getPrincipalLastName() = ch.keepcalm.security.securityUserFirstLastName()
     fun getAuthenticationName() = ch.keepcalm.security.securityGetAuthenticationName()
     fun getCurrentUsername() = ch.keepcalm.security.securityCurrentUserName()
