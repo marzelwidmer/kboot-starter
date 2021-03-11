@@ -1,4 +1,4 @@
-package  ch.keepcalm.security.autoconfig
+package ch.keepcalm.security.autoconfig
 
 import ch.keepcalm.security.SecurityService
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean

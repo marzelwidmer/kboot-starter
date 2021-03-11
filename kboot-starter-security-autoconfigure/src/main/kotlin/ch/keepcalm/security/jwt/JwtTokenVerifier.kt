@@ -45,7 +45,6 @@ class JwtTokenVerifier(private val securityJwtConfigurer: SecurityJwtConfigurer)
         .build()
         .parseClaimsJws(token)
 
-
     private fun toClaims(token: String): Claims = Jwts.parserBuilder()
         .setSigningKey(securityJwtConfigurer.secret)
         .build()

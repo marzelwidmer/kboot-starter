@@ -1,11 +1,10 @@
 package ch.keepcalm.security.test
 
 import ch.keepcalm.security.*
-import ch.keepcalm.security.securityUserName
+import org.amshove.kluent.`should be equal to`
 import org.junit.jupiter.api.Test
 import org.springframework.boot.SpringBootConfiguration
 import org.springframework.boot.test.context.SpringBootTest
-import org.amshove.kluent.`should be equal to`
 
 @SpringBootTest
 @SpringBootConfiguration

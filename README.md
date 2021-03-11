@@ -1,7 +1,9 @@
 # KBOOT Spring Boot Starter
+
 ![CI Build](https://github.com/marzelwidmer/kboot-starter/workflows/CI%20Build/badge.svg) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kboot-starter&metric=alert_status)](https://sonarcloud.io/dashboard?id=kboot-starter)
 
 ## Configure JWT
+
 ```yaml
 keepcalm:
   security:
@@ -10,9 +12,11 @@ keepcalm:
       audience: Keepcalm
       secret: s3cretP@ssw0rd
 ```
+
 ## Configure Protected EndPoints
-To override the default configuration of access of a User Token `/api` add the following configuration in you `application.yaml` file
-and also if you configure a Admin Endpoints.
+
+To override the default configuration of access of a User Token `/api` add the following configuration in you `application.yaml` file and also if you configure a Admin Endpoints.
+
 ```yaml
 keepcalm:
   security:
@@ -26,31 +30,33 @@ keepcalm:
 ```
 
 ## Maven
+
 ```xml
+
 <profile>
-    <id>github</id>
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/marzelwidmer/kboot-starter</url>
-        </repository>
-    </distributionManagement>
+	<id>github</id>
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/marzelwidmer/kboot-starter</url>
+		</repository>
+	</distributionManagement>
 </profile>
 ```
 
 ```xml
+
 <dependency>
 	<groupId>ch.keepcalm.security</groupId>
 	<artifactId>kboot-starter-security</artifactId>
 	<version>VERSION</version>
 </dependency>
-	
+
 ```
 
-
-
 # Test Support
+
 ```xml
 <!-- Test Support -->
 <dependency>
@@ -68,14 +74,22 @@ keepcalm:
 @SpringBootConfiguration
 class WithMockCustomerTest {
 
-	@WithMockCustomUser(username = "jane@doe.ch", authorities = ["keepcalm.user"], firstname = "jane", lastname = "doe")
-	@Test
-	fun `test SecurityContext of Jane Doe`() {
-		assertThat(getPrincipalFirstName()).isEqualTo("jane")
-		assertThat(getPrincipalLastName()).isEqualTo("doe")
-		assertThat(getCurrentUsername()).isEqualTo("jane@doe.ch")
-	}
+    @WithMockCustomUser(username = "jane@doe.ch", authorities = ["keepcalm.user"], firstname = "jane", lastname = "doe")
+    @Test
+    fun `test SecurityContext of Jane Doe`() {
+        assertThat(getPrincipalFirstName()).isEqualTo("jane")
+        assertThat(getPrincipalLastName()).isEqualTo("doe")
+        assertThat(getCurrentUsername()).isEqualTo("jane@doe.ch")
+    }
 }
 
 
+```
+
+# RestTemplate JWT token propagation
+
+Can be added to a RestTemplate instance like this:
+
+```kotlin
+restTemplate.getInterceptors().add(JwtTokenRelayHttpRequestInterceptor())
 ```
