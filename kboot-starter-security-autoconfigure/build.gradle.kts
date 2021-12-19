@@ -56,13 +56,9 @@ dependencies {
 
     // Test dependencies
     testImplementation("org.springframework.security", "spring-security-test", springSecurityTest)
-    testImplementation("org.springframework.boot", "spring-boot-starter-test", springBootVersion) {
-        exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
-        exclude(group = "junit", module = "junit")
-    }
+    testImplementation("org.springframework.boot", "spring-boot-starter-test", springBootVersion)
 
     testImplementation("io.projectreactor", "reactor-test", reactorTestVersion)
-    testImplementation(kotlin("test"))
     testImplementation("org.amshove.kluent", "kluent", kluentVersion)
 
     // Spring Cloud Contracts
