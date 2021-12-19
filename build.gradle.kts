@@ -1,11 +1,10 @@
 description = "Spring Boot Starter"
 
 plugins {
-    id("org.springframework.boot") version "2.4.1" apply false
-    id("io.spring.dependency-management") version "1.0.10.RELEASE" apply false
-    kotlin("jvm") version "1.4.21" apply false
-    kotlin("plugin.spring") version "1.4.21" apply false
-
+    id("org.springframework.boot") version "2.6.1" apply false
+    id("io.spring.dependency-management") version "1.0.11.RELEASE" apply false
+    kotlin("jvm") version "1.6.0" apply false
+    kotlin("plugin.spring") version "1.6.0" apply false
     base
     id("idea")
     id("org.jmailen.kotlinter") version "3.3.0"
@@ -35,8 +34,8 @@ buildscript {
     }
     dependencies {
         classpath("org.jmailen.gradle", "kotlinter-gradle", "3.3.0")
-        classpath("org.springframework.cloud", "spring-cloud-contract-gradle-plugin", "3.0.0")
-        classpath("org.springframework.cloud", "spring-cloud-contract-spec-kotlin", "3.0.0")
+        classpath("org.springframework.cloud", "spring-cloud-contract-gradle-plugin", "3.1.0")
+        classpath("org.springframework.cloud", "spring-cloud-contract-spec-kotlin", "3.1.0")
     }
 }
 
@@ -83,8 +82,8 @@ subprojects {
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         kotlinOptions {
-            languageVersion = "1.4"
-            apiVersion = "1.4"
+            languageVersion = "1.6"
+            apiVersion = "1.6"
             jvmTarget = "11"
             freeCompilerArgs = listOf("-Xjsr305=strict")
         }
