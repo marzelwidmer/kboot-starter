@@ -1,8 +1,8 @@
 description = "Spring Boot Starter"
 
 plugins {
-    id("org.springframework.boot") version "2.6.1" apply false
-    id("io.spring.dependency-management") version "1.0.11.RELEASE" apply false
+    id("org.springframework.boot") version "2.7.4" apply false
+    id("io.spring.dependency-management") version "1.0.14.RELEASE" apply false
     kotlin("jvm") version "1.6.0" apply false
     kotlin("plugin.spring") version "1.6.0" apply false
     base
@@ -53,7 +53,6 @@ subprojects {
     repositories {
         mavenLocal()
         mavenCentral()
-        jcenter()
         maven { url = uri("https://repo.spring.io/milestone") }
     }
 
@@ -76,15 +75,15 @@ subprojects {
     }
 
     java {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         kotlinOptions {
-            languageVersion = "1.6"
-            apiVersion = "1.6"
-            jvmTarget = "11"
+//            languageVersion = "1.6"
+//            apiVersion = "1.6"
+            jvmTarget = "17"
             freeCompilerArgs = listOf("-Xjsr305=strict")
         }
     }
