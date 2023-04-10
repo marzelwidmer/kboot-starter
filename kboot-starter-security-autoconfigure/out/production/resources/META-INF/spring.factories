@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  ch.keepcalm.security.webmvc.WebMvcSecurityConfiguration, \
-  ch.keepcalm.security.webflux.WebFluxSecurityConfiguration
