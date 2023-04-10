@@ -28,6 +28,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 17
+          distribution: temurin
       # Cache
       - name: Cache Packages
         uses: actions/cache@v1
@@ -35,7 +36,13 @@ jobs:
           path: ~/.m2/repository
           key: ${{ runner.os }}-m2
           restore-keys: ${{ runner.os }}-m2
+
       # Gradle Build
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 7.6.1
+
       - name: Build and Test with Gradle
         run: gradle build -Pversion=$VERSION-SNAPSHOT
 
