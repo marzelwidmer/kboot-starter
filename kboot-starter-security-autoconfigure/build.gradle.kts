@@ -5,6 +5,7 @@ plugins {
     kotlin("jvm")
     kotlin("plugin.spring")
     kotlin("kapt")
+    // TODO: 10.04.23  disable contracts
     id("org.springframework.cloud.contract")
 }
 
@@ -25,6 +26,7 @@ dependencyManagement {
         mavenBom("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
     }
 }
+
 contracts {
     testFramework.set(org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5)
     packageWithBaseClasses.set("ch.keepcalm.security.mock.base")
@@ -35,7 +37,6 @@ dependencies {
     api("io.jsonwebtoken", "jjwt-api", jjwtVersion)
     runtimeOnly("io.jsonwebtoken", "jjwt-impl", jjwtVersion)
     runtimeOnly("io.jsonwebtoken", "jjwt-jackson", jjwtVersion)
-
 
     // Kotlin dependencies
     implementation(kotlin("stdlib-jdk8"))
@@ -81,7 +82,9 @@ publishing {
     publications {
         create<MavenPublication>(project.name) {
             from(components["java"])
+            // TODO: 10.04.23  disable contracts
             artifact(tasks.named("verifierStubsJar"))
+
             // https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
             versionMapping {
                 usage("java-api") {

@@ -1,3 +1,5 @@
+import kotlin.properties.ReadOnlyProperty
+
 description = "Spring Boot Starter"
 
 plugins {
@@ -39,13 +41,12 @@ buildscript {
     }
 }
 
-fun Project.envConfig() = object : kotlin.properties.ReadOnlyProperty<Any?, String?> {
-    override fun getValue(thisRef: Any?, property: kotlin.reflect.KProperty<*>): String? =
-        if (extensions.extraProperties.has(property.name)) {
-            extensions.extraProperties[property.name] as? String
-        } else {
-            System.getenv(property.name)
-        }
+fun Project.envConfig() = ReadOnlyProperty<Any?, String?> { _, property ->
+    if (extensions.extraProperties.has(property.name)) {
+        extensions.extraProperties[property.name] as? String
+    } else {
+        System.getenv(property.name)
+    }
 }
 
 subprojects {
@@ -81,8 +82,6 @@ subprojects {
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         kotlinOptions {
-//            languageVersion = "1.6"
-//            apiVersion = "1.6"
             jvmTarget = "17"
             freeCompilerArgs = listOf("-Xjsr305=strict")
         }
@@ -96,11 +95,12 @@ subprojects {
 
     tasks.jacocoTestReport {
         reports {
-            xml.isEnabled = true
-            csv.isEnabled = false
-            html.destination = file("$buildDir/jacocoHtml")
+            xml.required.set(true)
+            csv.required.set(false)
+            html.outputLocation.set(file("$buildDir/jacocoHtml"))
         }
     }
+
     tasks.jacocoTestCoverageVerification {
         violationRules {
             rule {
@@ -114,11 +114,13 @@ subprojects {
             }
         }
     }
+
     tasks.test {
         // report is always generated after tests run
         finalizedBy(tasks.jacocoTestReport)
         finalizedBy(tasks.jacocoTestCoverageVerification)
     }
+
     tasks.withType<Delete> {
         doFirst {
             delete("~/.m2/repository/ch/keepcalm/security/")
