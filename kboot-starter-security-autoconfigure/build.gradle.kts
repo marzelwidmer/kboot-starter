@@ -5,8 +5,6 @@ plugins {
     kotlin("jvm")
     kotlin("plugin.spring")
     kotlin("kapt")
-    // TODO: 10.04.23  disable contracts
-    id("org.springframework.cloud.contract")
 }
 
 val springBootVersion: String by extra
@@ -27,11 +25,6 @@ dependencyManagement {
     }
 }
 
-contracts {
-    testFramework.set(org.springframework.cloud.contract.verifier.config.TestFramework.JUNIT5)
-    packageWithBaseClasses.set("ch.keepcalm.security.mock.base")
-}
-
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api("io.jsonwebtoken", "jjwt-api", jjwtVersion)
@@ -39,7 +32,7 @@ dependencies {
     runtimeOnly("io.jsonwebtoken", "jjwt-jackson", jjwtVersion)
 
     // Kotlin dependencies
-    implementation(kotlin("stdlib-jdk8"))
+    implementation(kotlin("stdlib"))
     implementation(kotlin("reflect"))
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-reactor", kotlinxCoroutinesReactorVersion)
 
@@ -62,10 +55,6 @@ dependencies {
     testImplementation("io.projectreactor", "reactor-test", reactorTestVersion)
     testImplementation("org.amshove.kluent", "kluent", kluentVersion)
 
-    // Spring Cloud Contracts
-    testImplementation("org.springframework.cloud", "spring-cloud-starter-contract-verifier")
-    testImplementation("org.springframework.cloud", "spring-cloud-contract-spec-kotlin")
-    testImplementation("org.springframework.cloud", "spring-cloud-starter-contract-stub-runner")
 }
 
 publishing {
@@ -82,8 +71,6 @@ publishing {
     publications {
         create<MavenPublication>(project.name) {
             from(components["java"])
-            // TODO: 10.04.23  disable contracts
-            artifact(tasks.named("verifierStubsJar"))
 
             // https://github.com/spring-gradle-plugins/dependency-management-plugin/issues/273
             versionMapping {

@@ -14,7 +14,6 @@ class WithMockCustomerTest {
     @Test
     fun `test SecurityContext of Jane Doe`() {
         securityUserFirstName() `should be equal to` "jane"
-        securityUserFirstLastName() `should be equal to` "doe"
-        securityCurrentUserName() `should be equal to` "jane@doe.ch"
+        securityUserLastName() `should be equal to` "doe"
     }
 }

@@ -16,7 +16,7 @@ dependencies {
     api(project(":kboot-starter-security-autoconfigure"))
 
     // Kotlin dependencies
-    implementation(kotlin("stdlib-jdk8"))
+    implementation(kotlin("stdlib"))
     implementation(kotlin("reflect"))
 
     // Spring Boot dependencies

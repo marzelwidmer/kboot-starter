@@ -1,17 +1,17 @@
 package ch.keepcalm.security.webmvc
 
 import ch.keepcalm.security.jwt.JwtTokenVerifier
+import jakarta.servlet.FilterChain
+import jakarta.servlet.ServletException
+import jakarta.servlet.ServletRequest
+import jakarta.servlet.ServletResponse
+import jakarta.servlet.http.HttpServletRequest
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders.AUTHORIZATION
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.util.StringUtils.hasText
 import org.springframework.web.filter.GenericFilterBean
 import java.io.IOException
-import javax.servlet.FilterChain
-import javax.servlet.ServletException
-import javax.servlet.ServletRequest
-import javax.servlet.ServletResponse
-import javax.servlet.http.HttpServletRequest
 
 class JwtTokenFilter(private val tokenVerifier: JwtTokenVerifier) : GenericFilterBean() {
     private val log = LoggerFactory.getLogger(javaClass)
@@ -35,7 +35,7 @@ class JwtTokenFilter(private val tokenVerifier: JwtTokenVerifier) : GenericFilte
     private fun resolveToken(request: HttpServletRequest) =
         extractBearerTokenFromAuthorizationHeader(
             request.getHeader(AUTHORIZATION)
-                .also { log.trace("Found Authorization Header: $it") }
+                .also { log.trace("Found Authorization Header: $it") },
         )
 
     /**
